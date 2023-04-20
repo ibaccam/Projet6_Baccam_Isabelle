@@ -10,6 +10,14 @@ const express = require('express'); //appel de express
 
 const app = express(); //permet de créer l'application express
 
+
+/*------------------------------------------------
+    Import routes
+--------------------------------------------------*/
+
+const userRoutes = require('./routes/user');
+
+
 /*------------------------------------------------
     Base de données
 --------------------------------------------------*/
@@ -40,12 +48,16 @@ app.use((req, res, next) => {
 });
 
 /*------------------------------------------------
-    Middleware - Créer une route POST
+    Middleware 
 --------------------------------------------------*/
 
+//Créer une route POST
 //Pour gérer la requête POST venant de l'application front-end, on a besoin d'en extraire le corps JSON.
 //Donc utilisation d'un middleware mis à disposition par le framework Express:
 app.use(express.json());
+
+//User Routes
+app.use('/api/auth', userRoutes); // Appel de userRoutes
 
 /////////////////////////////
 module.exports = app;
