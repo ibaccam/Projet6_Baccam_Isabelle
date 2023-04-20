@@ -35,7 +35,7 @@ const errorHandler = error => {
   }
 };
 
-const server = http.createServer(app); // va chercher l'application
+const server = http.createServer(app); // va chercher l'application // Un serveur Node basique est démarré avec la méthode  createServer  du package  http
 
 server.on('error', errorHandler);
 server.on('listening', () => {
