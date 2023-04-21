@@ -12,13 +12,6 @@ const app = express(); //permet de créer l'application express
 
 
 /*------------------------------------------------
-    Import routes
---------------------------------------------------*/
-
-const userRoutes = require('./routes/user');
-
-
-/*------------------------------------------------
     Base de données
 --------------------------------------------------*/
 
@@ -32,6 +25,23 @@ mongoose.connect('mongodb+srv://User_1:User_1@atlascluster.dmcq2lm.mongodb.net/?
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+
+/*------------------------------------------------
+    Chemin d'accès complet au fichier téléchargé / image
+    Traiter les requêtes vers la route /image, en rendant notre dossier images statique.
+--------------------------------------------------*/
+const path = require('path');
+
+
+  
+/*------------------------------------------------
+    Import routes
+--------------------------------------------------*/
+
+const userRoutes = require('./routes/user');
+const saucesRoutes = require('./routes/sauces');
+
 
 /*------------------------------------------------
     CORS
@@ -56,8 +66,10 @@ app.use((req, res, next) => {
 //Donc utilisation d'un middleware mis à disposition par le framework Express:
 app.use(express.json());
 
-//User Routes
+//Appel des Routes
 app.use('/api/auth', userRoutes); // Appel de userRoutes
+app.use("/api/sauces", saucesRoutes); // Appel de saucesRoutes => enregistrement de notre routeur pour toutes les demandes effectuées vers /api/sauces
+app.use('/images', express.static(path.join(__dirname, 'images')));// Cela indique à Express qu'il faut gérer la ressource images de manière statique (un sous-répertoire de notre répertoire de base, __dirname) à chaque fois qu'elle reçoit une requête vers la route /images
 
 /////////////////////////////
 module.exports = app;

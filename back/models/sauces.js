@@ -1,8 +1,8 @@
 /*------------------------------------------------
-    Modèle sauces
+    Modèle sauce
 --------------------------------------------------*/
 
-const mongoose = require("mongoose"); // import mangoose pour créer un schéma
+const mongoose = require("mongoose"); // import mongoose pour créer un schéma
 
 // Création du schéma des données sauces - type et caractère (obligatoire ou non)
 // Pas besoin de mettre un champ pour l'Id puisqu'il est automatiquement généré par Mongoose
