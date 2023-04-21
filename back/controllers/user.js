@@ -52,6 +52,7 @@ exports.login = (req, res, next) => {
                     userId: user._id, // objet id
                     token: jwt.sign(  // utilisation de la fonction sign de jsonwebtoken pour chiffrer un nouveau token
                         { userId: user._id }, // ce token contient l'ID de l'utilisateur en tant que payload (les données encodées dans le token) // encodage de l'user id pour la création de nouveaux objets, sera utilisé pour appliquer le bon user id à chaque objet pour qu on ne puisse pas modifier l'objet des autres utilisateurs 
+                                            //Cela permet de s'assurer que seul le propriétaire de la sauce peut apporter des modifications à celle-ci.
                         'RANDOM_TOKEN_SECRET', // nous utilisons une chaîne secrète de développement temporaire pour crypter notre token (à remplacer par une chaîne aléatoire beaucoup plus longue pour la production)
                         { expiresIn: '24h' } // nous définissons la durée de validité du token à 24 heures. L'utilisateur devra donc se reconnecter au bout de 24 heures.
                     )
