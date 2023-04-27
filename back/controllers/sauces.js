@@ -75,7 +75,7 @@ exports.modifySauce = (req, res, next) => {
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body }; // S'il n'existe pas, on traite simplement l'objet entrant, on récupère directement l'objet dans le corps de la requête
   
-    delete thingObject._userId; // Par sécurité : Nous supprimons le champ_userId de la requête pour eviter que qq'un crée un objet à son nom et le modifie pour le réassigner à quelque un d'aurte
+    delete sauceObject._userId; // Par sécurité : Nous supprimons le champ_userId de la requête pour eviter que qq'un crée un objet à son nom et le modifie pour le réassigner à quelque un d'aurte
     Sauce.findOne({_id: req.params.id}) // On récupère l'objet dans la base de données
         .then((sauce) => { // Il faut aussi nous assurer que la personne demandant la modification de l’objet est la propriétaire de celui-ci.
             if (sauce.userId != req.auth.userId) { 
@@ -107,7 +107,7 @@ exports.deleteSauce = (req, res, next) => {
           if (sauce.userId != req.auth.userId) {  // Nous vérifions si l’utilisateur qui a fait la requête de suppression est bien celui qui a créé la sauce
               res.status(401).json({message: 'Not authorized'}); // Si non, on envoie une erreur
           } else {                     // si propriétaire :
-              const filename = thing.imageUrl.split('/images/')[1]; // on récupère le nom de fichier grâce à split dans le répertoire images
+              const filename = sauce.imageUrl.split('/images/')[1]; // on récupère le nom de fichier grâce à split dans le répertoire images
               fs.unlink(`images/${filename}`, () => {  // on utilise la fonction unlink du package fs pour supprimer ce fichier
                   Sauce.deleteOne({_id: req.params.id})
                       .then(() => { res.status(200).json({message: 'Sauce supprimée !'})})
@@ -127,7 +127,7 @@ exports.deleteSauce = (req, res, next) => {
 --------------------------------------------------*/
 
 
-exports.likeDislike = (req, res, next) => {
+exports.likeSauce = (req, res, next) => {
  
   
   let like = req.body.like       // Pour récupérer le like dans le body
