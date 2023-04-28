@@ -43,7 +43,7 @@ exports.createSauce = (req, res, next) => {
   // Données envoyées par le front-end sous forme de chaines de caractères à transformer en objet sous forme de JSON
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id; // On supprime l'id généré automatiquement et envoyé par le front-end. L'id de la sauce est créé par la base MongoDB
-  delete sauceObject._userId; // Nous supprimons le champ_userId de la requête envoyée par le client, par sécurité
+  delete sauceObject._userId; // Par sécurité : Nous supprimons le champ_userId de la requête pour eviter que qq'un crée un objet à son nom et le modifie pour le réassigner à quelqu'un d'aurte
   const sauce = new Sauce({ // Création de l'objet Sauce
     ...sauceObject,
     userId: req.auth.userId, // Nous le remplaçons en base de données par le _userId extrait du token par le middleware d’authentification.
@@ -75,7 +75,7 @@ exports.modifySauce = (req, res, next) => {
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body }; // S'il n'existe pas, on traite simplement l'objet entrant, on récupère directement l'objet dans le corps de la requête
   
-    delete sauceObject._userId; // Par sécurité : Nous supprimons le champ_userId de la requête pour eviter que qq'un crée un objet à son nom et le modifie pour le réassigner à quelque un d'aurte
+    delete sauceObject._userId; // Par sécurité : Nous supprimons le champ_userId de la requête pour eviter que qq'un crée un objet à son nom et le modifie pour le réassigner à quelqu'un d'aurte
     Sauce.findOne({_id: req.params.id}) // On récupère l'objet dans la base de données
         .then((sauce) => { // Il faut aussi nous assurer que la personne demandant la modification de l’objet est la propriétaire de celui-ci.
             if (sauce.userId != req.auth.userId) { 
