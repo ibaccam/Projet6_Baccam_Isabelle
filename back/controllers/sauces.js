@@ -2,7 +2,7 @@
 // Logique métier à chaque route
 
 // Import Modèle sauces
-const sauce = require('../models/sauces');
+const Sauce = require('../models/sauces');
 
 // Import Module 'file system' de Node : donne accès aux fonctions qui nous permettent de modifier le système de fichiers, ou supprimer les fichiers
 const fs = require('fs');
@@ -81,7 +81,7 @@ exports.modifySauce = (req, res, next) => {
             if (sauce.userId != req.auth.userId) { 
                 res.status(401).json({ message : 'Non-autorisé'}); 
             } else {
-                sauce.updateOne({ _id: req.params.id}, { ...sauceObject, _id: req.params.id}) // si oui, on crée ensuite une instance Sauce à partir de sauceObject, puis on effectue la modification
+                Sauce.updateOne({ _id: req.params.id}, { ...sauceObject, _id: req.params.id}) // si oui, on crée ensuite une instance Sauce à partir de sauceObject, puis on effectue la modification
                 .then(() => res.status(200).json({message : 'Sauce modifiée!'}))
                 .catch(error => res.status(401).json({ error }));
             }
