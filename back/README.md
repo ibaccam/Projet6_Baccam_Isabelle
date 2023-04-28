@@ -61,7 +61,7 @@ Stocker des données de manière sécurisée
 
 ### Si les packages sont déja installés, ces commandes suffisent à démarrer les serveurs.
 
-* `npm run start via le terminal sur le frontend
+* `npm run start` via le terminal sur le frontend
 * `nodemon server` via le terminal sur le backend
 * Se connecter à l'url : `http://localhost:4200`
 
@@ -124,5 +124,13 @@ correspond pas, renvoyer « 403: unauthorized request. » Cela permet de s'assur
 * Un plugin Mongoose doit assurer la remontée des erreurs issues de la base de données.
 * Les versions les plus récentes des logiciels sont utilisées avec des correctifs de sécurité actualisés.
 * Le contenu du dossier images ne doit pas être téléchargé sur GitHub.
-  
+ 
+ 
+ ![image](https://user-images.githubusercontent.com/114150618/235154827-77e8fde4-f84a-43b0-a430-2cdd71230713.png)
+ 
+ ![image](https://user-images.githubusercontent.com/114150618/235154980-dc2e396d-7667-4cb1-981d-8b67369f30b3.png)
+
+
+ 
+ 
 ***
